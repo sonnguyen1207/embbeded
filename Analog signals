@@ -1,0 +1,30 @@
+int ledPin = 9;      
+int analogPin = A0;  
+int val = 0;         
+int lastVal = -1;    // Variable to store the previous reading
+
+void setup() {
+	pinMode(ledPin, OUTPUT);
+	pinMode(analogPin, INPUT);
+	Serial.begin(9600);
+}
+
+void loop() {
+	val = analogRead(analogPin); 
+
+	// Only print if the value has changed
+	if (val != lastVal) {
+		Serial.print("Analog Value: ");
+		Serial.println(val);
+
+		// Update lastVal so we don't print again until it moves
+		lastVal = val; 
+	}
+
+	// LED Logic
+	if (val >= 1023) {
+		digitalWrite(ledPin, HIGH);
+	} else {
+		digitalWrite(ledPin, LOW);
+	}
+}
